@@ -11,9 +11,9 @@ class InfoMessage:
     def get_message(self) -> str:
         """Вернуть строку сообщения с данными о тренировке."""
         return (f'Тип тренировки: {self.training_type}; Длительность: '
-                f'{self.duration:.2f} ч.; Дистанция: {self.distance:.2f} км; Ср. '
-                f'скорость: {self.speed:.2f} км/ч; Потрачено ккал: '
-                f'{self.calories:.2f}.')
+                f'{self.duration:.2f} ч.; Дистанция: {self.distance:.2f} км;'
+                f' Ср. скорость: {self.speed:.2f} км/ч;'
+                f' Потрачено ккал: {self.calories:.2f}.')
 
 
 M_IN_KM = 1000
@@ -64,10 +64,10 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
     def get_spent_calories(self) -> float:
-        avg_speed = self.get_mean_speed
-        calories_burn = (CALORIES_MEAN_SPEED_MULTIPLIER * avg_speed
-                         + CALORIES_MEAN_SPEED_SHIFT) * self.weight / \
-            M_IN_KM * self.duration
+        avg_speed = self.get_mean_speed()
+        calories_burn = ((CALORIES_MEAN_SPEED_MULTIPLIER * avg_speed
+                         + CALORIES_MEAN_SPEED_SHIFT) * self.weight / 
+                         M_IN_KM * self.duration)
         return calories_burn
 
 
@@ -79,7 +79,7 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self):
-        avg_speed = self.get_mean_speed
+        avg_speed = self.get_mean_speed()
         avg_speed_mps = avg_speed / 3.6
         height_m = self.height / 100
         duration_m = self.duration * 60
@@ -115,9 +115,7 @@ def read_package(workout_type: str, data: list) -> Training:
         'WLK': SportsWalking
     }
     if workout_type in workouts:
-        # Если код тренировки существует, получаем соответствующий класс
         workout_class = workouts[workout_type]
-        # Создаем объект тренировки, передав параметры из списка data в качестве аргументов
         return workout_class(*data)
 
 
