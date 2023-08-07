@@ -81,13 +81,11 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self):
-        avg_speed = self.get_mean_speed()
-        calories_burn = ((self.WEIGHT_MULTIPLIER * self.weight + ((avg_speed
-                         * self.SPEED_TRANSLATER)**2 / (self.height
-                         / self.HEIGHT_TRANSLATER)) * self.SPEED_MULTIPLIER
-                                                    * self.weight)
-                         * self.duration * self.MIN_IN_HR)
-        return calories_burn
+        return ((self.WEIGHT_MULTIPLIER * self.weight + ((self.get_mean_speed()
+                * self.SPEED_TRANSLATER)**2 / (self.height
+                / self.HEIGHT_TRANSLATER)) * self.SPEED_MULTIPLIER
+                                           * self.weight)
+                * self.duration * self.MIN_IN_HR)
 
 
 class Swimming(Training):
@@ -102,22 +100,15 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-    # def get_distance(self) -> float:
-    #     """Получить дистанцию в км."""
-    #     distance = self.action * self.LEN_STEP / self.M_IN_KM
-    #     return distance
-
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        avg_spd = (self.length_pool * self.count_pool
-                   / self.M_IN_KM / self.duration)
-        return avg_spd
+        return (self.length_pool * self.count_pool
+                / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
         avg_spd = self.get_mean_speed()
-        calories_burn = ((avg_spd + self.AVG_SPEED_OFFSET)
-                         * self.SPEED_MULTIPLIER * self.weight * self.duration)
-        return calories_burn
+        return ((avg_spd + self.AVG_SPEED_OFFSET)
+                * self.SPEED_MULTIPLIER * self.weight * self.duration)
 
 
 def read_package(workout_type: str, data: list[float]) -> Training:
