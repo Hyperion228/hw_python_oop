@@ -26,7 +26,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65
     MIN_IN_HR = 60
-    METR_IN_KM = 1000
+    M_IN_KM = 1000
 
     def __init__(self,
                  action: int,
